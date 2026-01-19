@@ -1,0 +1,7 @@
+Título: Codigo de Etica de Teletransportacion
+ID: DOC-008
+Categoría: Regulación
+
+Prohíbe el transporte de materia orgánica viva sin consentimiento.
+Esta regulación es aplicada por el Consejo de la Federación Galáctica.
+El incumplimiento resulta en sanciones nivel 4.

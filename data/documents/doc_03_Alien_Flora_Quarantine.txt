@@ -1,0 +1,7 @@
+Title: Alien Flora Quarantine
+ID: DOC-003
+Category: Regulation
+
+Prohibits transport of sentient plants from Sector 7.
+This regulation is enforced by the Galactic Federation Council.
+Failure to comply results in sanctions level 4.

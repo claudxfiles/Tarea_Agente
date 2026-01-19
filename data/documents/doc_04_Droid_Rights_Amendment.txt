@@ -1,0 +1,7 @@
+Title: Droid Rights Amendment
+ID: DOC-004
+Category: Regulation
+
+Grants basic citizenship to AI units passing the Turing-V test.
+This regulation is enforced by the Galactic Federation Council.
+Failure to comply results in sanctions level 4.

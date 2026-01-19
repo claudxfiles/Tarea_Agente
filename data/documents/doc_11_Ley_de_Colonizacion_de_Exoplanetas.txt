@@ -1,0 +1,7 @@
+Título: Ley de Colonizacion de Exoplanetas
+ID: DOC-011
+Categoría: Regulación
+
+Protección de biodiversidad para mundos habitables verificados.
+Esta regulación es aplicada por el Consejo de la Federación Galáctica.
+El incumplimiento resulta en sanciones nivel 4.

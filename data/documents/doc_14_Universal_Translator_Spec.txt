@@ -1,0 +1,7 @@
+Title: Universal Translator Spec
+ID: DOC-014
+Category: Regulation
+
+Updates language matrix for Klingon dialects.
+This regulation is enforced by the Galactic Federation Council.
+Failure to comply results in sanctions level 4.

@@ -1,0 +1,7 @@
+Title: Warp Drive Safety Protocols
+ID: DOC-002
+Category: Regulation
+
+Mandatory cooling periods for Class-V engines.
+This regulation is enforced by the Galactic Federation Council.
+Failure to comply results in sanctions level 4.

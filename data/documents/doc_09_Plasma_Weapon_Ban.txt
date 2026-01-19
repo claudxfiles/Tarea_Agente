@@ -1,0 +1,7 @@
+Title: Plasma Weapon Ban
+ID: DOC-009
+Category: Regulation
+
+Prohibits civilian ownership of plasma-based firearms.
+This regulation is enforced by the Galactic Federation Council.
+Failure to comply results in sanctions level 4.

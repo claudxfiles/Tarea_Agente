@@ -1,0 +1,7 @@
+Título: Protocolos de Seguridad de Motor Warp
+ID: DOC-002
+Categoría: Regulación
+
+Periodos de enfriamiento obligatorios para motores Clase-V.
+Esta regulación es aplicada por el Consejo de la Federación Galáctica.
+El incumplimiento resulta en sanciones nivel 4.

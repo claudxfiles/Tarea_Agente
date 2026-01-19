@@ -1,0 +1,7 @@
+Title: Interstellar Tariff Act 2045
+ID: DOC-001
+Category: Regulation
+
+Establishes a 5% tax on all dilithium imports.
+This regulation is enforced by the Galactic Federation Council.
+Failure to comply results in sanctions level 4.

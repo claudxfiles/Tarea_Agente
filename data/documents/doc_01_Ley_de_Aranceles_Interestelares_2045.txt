@@ -1,0 +1,7 @@
+Título: Ley de Aranceles Interestelares 2045
+ID: DOC-001
+Categoría: Regulación
+
+Establece un impuesto del 5% sobre todas las importaciones de dilitio.
+Esta regulación es aplicada por el Consejo de la Federación Galáctica.
+El incumplimiento resulta en sanciones nivel 4.

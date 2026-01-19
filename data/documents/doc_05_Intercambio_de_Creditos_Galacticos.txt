@@ -1,0 +1,7 @@
+Título: Intercambio de Creditos Galacticos
+ID: DOC-005
+Categoría: Regulación
+
+Tipo de cambio fijo entre Créditos y Latinum.
+Esta regulación es aplicada por el Consejo de la Federación Galáctica.
+El incumplimiento resulta en sanciones nivel 4.

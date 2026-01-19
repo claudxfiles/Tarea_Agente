@@ -1,0 +1,7 @@
+Title: Asteroid Mining Licenses
+ID: DOC-006
+Category: Regulation
+
+Requires permit A-99 for unregulated belts.
+This regulation is enforced by the Galactic Federation Council.
+Failure to comply results in sanctions level 4.
