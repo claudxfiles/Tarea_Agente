@@ -1,5 +1,6 @@
 import os
 import redis
+import pypdf
 from redis.commands.search.field import TextField, VectorField, TagField
 from redis.commands.search.indexDefinition import IndexDefinition, IndexType
 import numpy as np
@@ -16,10 +17,11 @@ r = redis.Redis(
 )
 
 INDEX_NAME = "kb_index"
-VECTOR_DIM = 1536 # OpenAI text-embedding-3-small dim
+VECTOR_DIM = 1536 
 
 def create_index():
     try:
+        # Check if index exists
         r.ft(INDEX_NAME).info()
         print("Index already exists.")
     except Exception:
@@ -43,46 +45,60 @@ def create_index():
         print("Index created.")
 
 def ingest_documents():
-    data_dir = "data/documents"
-    files = [f for f in os.listdir(data_dir) if f.endswith(".txt")]
+    # 1. Clear Redis
+    print("Clearing Redis database...")
+    r.flushall()
+    create_index() # Re-create index after flush
     
-    print(f"Found {len(files)} documents.")
+    # 2. PDF Path
+    pdf_path = "data/PDF/Ley-21442_13-ABR-2022.pdf"
+    if not os.path.exists(pdf_path):
+        print(f"Error: PDF not found at {pdf_path}")
+        return
+
+    print(f"Processing PDF: {pdf_path}")
     
-    for filename in files:
-        filepath = os.path.join(data_dir, filename)
-        with open(filepath, 'r', encoding='utf-8') as f:
-            text = f.read()
-            
-        chunks = chunk_text(text)
-        print(f"Processing {filename}: {len(chunks)} chunks")
+    # 3. Extract Text
+    full_text = ""
+    try:
+        reader = pypdf.PdfReader(pdf_path)
+        for page in reader.pages:
+            full_text += page.extract_text() + "\n"
+    except Exception as e:
+        print(f"Error reading PDF: {e}")
+        return
+
+    print(f"Extracted {len(full_text)} chars from PDF.")
+
+    # 4. Chunking
+    chunks = chunk_text(full_text)
+    print(f"Generated {len(chunks)} chunks.")
+    
+    # 5. Ingest
+    for i, chunk in enumerate(chunks):
+        embedding = get_embedding(chunk['content'])
         
-        for i, chunk in enumerate(chunks):
-            # Extract basic metadata from first few lines if possible, or just use filename
-            # For simplicity, we use filename
-            embedding = get_embedding(chunk['content'])
+        if not embedding:
+            print(f"Skipping chunk {i} due to embedding error")
+            continue
             
-            if not embedding:
-                print(f"Skipping chunk {i} due to embedding error")
-                continue
-                
-            key = f"chunk:{filename}:{i}"
-            
-            # Prepare data for Redis
-            # redis-py requires bytes for vector field
-            embedding_bytes = np.array(embedding, dtype=np.float32).tobytes()
-            
-            mapping = {
-                "doc_id": filename,
-                "chunk_id": chunk['chunk_id'],
-                "content": chunk['content'],
-                "vector": embedding_bytes
-            }
-            
-            # Using HSET for Hash
-            r.hset(key, mapping=mapping)
+        key = f"chunk:ley_copropiedad:{i}"
+        
+        # Prepare data for Redis
+        embedding_bytes = np.array(embedding, dtype=np.float32).tobytes()
+        
+        mapping = {
+            "doc_id": "Ley-21442_13-ABR-2022.pdf",
+            "chunk_id": chunk['chunk_id'],
+            "content": chunk['content'],
+            "vector": embedding_bytes
+        }
+        
+        r.hset(key, mapping=mapping)
+        if i % 10 == 0:
+            print(f"Ingested {i}/{len(chunks)} chunks...")
             
     print("Ingestion complete.")
 
 if __name__ == "__main__":
-    create_index()
     ingest_documents()

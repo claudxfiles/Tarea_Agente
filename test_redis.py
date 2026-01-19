@@ -31,7 +31,21 @@ def test_redis_connection():
             info = redis_client.info('server')
             print(f"🖥️  Redis version: {info.get('redis_version')}")
             
+            # Contar chunks de la KB
+            print("\n📚 Estadísticas de la Base de Conocimiento:")
+            # Opción A: Contar keys con patrón (puede ser lento en DBs muy grandes, pero ok aquí)
+            keys = redis_client.keys("chunk:*")
+            print(f"   - Total de Chunks (fragmentos): {len(keys)}")
+            
+            # Opción B: Si usamos Search Index
+            try:
+                idx_info = redis_client.ft("kb_index").info()
+                print(f"   - Documentos en Índice: {idx_info['num_docs']}")
+            except Exception:
+                print("   - Índice 'kb_index' no encontrado.")
+
             return True
+            
     except redis.ConnectionError as e:
         print(f"❌ Error de conexión a Redis: {e}")
         print("\n🔧 Verificaciones:")

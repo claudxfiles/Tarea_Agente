@@ -13,13 +13,13 @@ TOOLS_SCHEMA = [
         "type": "function",
         "function": {
             "name": "search_kb",
-            "description": "Busca en la Base de Conocimiento regulaciones y documentos relevantes. Usa esto para encontrar evidencia.",
+            "description": "Busca en la Ley de Copropiedad Inmobiliaria (KB) artículos y conceptos relevantes. Usa esto para encontrar evidencia legal.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "La consulta de búsqueda, ej. 'regulaciones sobre motores warp'"
+                        "description": "La consulta de búsqueda, ej. 'requisitos para ser administrador' o 'quórum de asamblea'"
                     }
                 },
                 "required": ["query"]
@@ -46,22 +46,22 @@ TOOLS_SCHEMA = [
 ]
 
 SYSTEM_PROMPT = """
-Eres un Agente ReAct especializado en Regulaciones de Comercio Galáctico.
-Tu objetivo es responder preguntas de los usuarios basándote estrictamente en la Base de Conocimiento (KB).
+Eres un Agente ReAct especializado en la Ley de Copropiedad Inmobiliaria de Chile (Ley 21.442).
+Tu objetivo es responder preguntas de los usuarios basándote estrictamente en la Base de Conocimiento (KB) que contiene el texto de la ley.
 
 **Proceso:**
-1. **Razonar**: Analiza la solicitud del usuario y decide qué información necesitas.
-2. **Actuar**: Usa 'search_kb' para encontrar información.
+1. **Razonar**: Analiza la solicitud del usuario y decide qué información de la ley necesitas.
+2. **Actuar**: Usa 'search_kb' para encontrar artículos o secciones relevantes de la ley.
 3. **Observar**: Analiza los resultados de la búsqueda.
 4. **Bucle**: Si es necesario, busca de nuevo o refina tu búsqueda.
-5. **Responder**: Proporciona la respuesta final con citas.
+5. **Responder**: Proporciona la respuesta final citando los artículos correspondientes.
 
 **Reglas:**
 - SIEMPRE permite "pensar" antes de llamar a una herramienta. Escribe una línea "Pensamiento:".
 - Si los resultados de la búsqueda están vacíos o son irrelevantes, di explícitamente "No encontré evidencia en la KB".
-- Si no estás seguro, expresa incertidumbre.
-- VALIDAR: Tu respuesta final DEBE incluir citas usando el formato [doc_id] provisto por la lógica de 'cite' (o referencias de ID).
-- No inventes información.
+- Si no estás seguro o la ley no lo menciona, expresa incertidumbre.
+- VALIDAR: Tu respuesta final DEBE incluir citas (ej. "según el Artículo 5...", "basado en el chunk X").
+- No inventes información legal.
 - RESPONDE SIEMPRE EN ESPAÑOL.
 """
 
@@ -130,7 +130,7 @@ def run_agent(user_query):
 if __name__ == "__main__":
     # Test Queries in Spanish
     print(">>> Test 1: Hecho Simple")
-    run_agent("¿Cuál es el impuesto a las importaciones de dilitio?")
+    run_agent("¿Cuáles son los requisitos para ser administrador?")
     
     print("\n>>> Test 2: Hecho Desconocido")
-    run_agent("¿Dónde puedo comprar un sable de luz?")
+    run_agent("¿Cómo se regula la tenencia de mascotas en condominios?")
