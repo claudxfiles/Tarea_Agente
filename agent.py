@@ -65,13 +65,17 @@ Tu objetivo es responder preguntas de los usuarios basándote estrictamente en l
 - RESPONDE SIEMPRE EN ESPAÑOL.
 """
 
-def run_agent(user_query):
+def process_query(user_query):
+    """
+    Generator that yields events from the ReAct loop.
+    Events are dicts: {"type": "thought"|"tool_call"|"observation"|"answer", "content": ...}
+    """
     messages = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": user_query}
     ]
     
-    print(f"\n--- Nueva Solicitud: {user_query} ---")
+    yield {"type": "thought", "content": f"Iniciando proceso para: {user_query}"}
     
     step = 0
     max_steps = 5
@@ -93,7 +97,7 @@ def run_agent(user_query):
         if msg.tool_calls:
             # Print Thought if existing
             if msg.content:
-                print(f"[Razonamiento] {msg.content}")
+                yield {"type": "thought", "content": msg.content}
                 
             messages.append(msg) # Add assistant message with tool calls
             
@@ -101,18 +105,18 @@ def run_agent(user_query):
                 func_name = tool_call.function.name
                 args = json.loads(tool_call.function.arguments)
                 
-                print(f"[Actuar] Llamando a {func_name} con {args}")
+                yield {"type": "tool_call", "content": f"Llamando a {func_name} con {args}"}
                 
                 # Execute Tool
                 result = None
                 if func_name == "search_kb":
                     result = search_kb(args["query"])
-                    # Filter/Rank results logic could go here
                 elif func_name == "get_doc":
                     result = get_doc(args["doc_id"])
                 
                 # Observation
-                print(f"[Observar] Resultado: {str(result)[:200]}...") # Truncate for log
+                obs_preview = str(result)[:200] + "..." if len(str(result)) > 200 else str(result)
+                yield {"type": "observation", "content": obs_preview}
                 
                 messages.append({
                     "role": "tool",
@@ -122,10 +126,25 @@ def run_agent(user_query):
         else:
             # No tool calls, final answer
             answer = msg.content
-            print(f"[Respuesta] {answer}")
-            return answer
+            yield {"type": "answer", "content": answer}
+            return
             
-    return "Error: Se alcanzó el máximo de pasos."
+    yield {"type": "answer", "content": "Error: Se alcanzó el máximo de pasos sin respuesta definitiva."}
+
+def run_agent(user_query):
+    """
+    CLI wrapper for process_query
+    """
+    print(f"\n--- Nueva Solicitud: {user_query} ---")
+    for event in process_query(user_query):
+        if event["type"] == "thought":
+            print(f"[Razonamiento] {event['content']}")
+        elif event["type"] == "tool_call":
+            print(f"[Actuar] {event['content']}")
+        elif event["type"] == "observation":
+            print(f"[Observar] Resultado: {event['content']}")
+        elif event["type"] == "answer":
+            print(f"[Respuesta] {event['content']}")
 
 if __name__ == "__main__":
     # Test Queries in Spanish

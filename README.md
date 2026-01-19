@@ -27,6 +27,12 @@ python ingest.py
 python agent.py
 ```
 
+### 4. Interfaz Web (Streamlit)
+Para una experiencia conversacional:
+```bash
+python -m streamlit run app.py
+```
+
 ## 📂 Estructura
 - `agent.py`: Loop principal del agente (ReAct).
 - `tools/`: Herramientas (`search_kb`, `get_doc`, `cite`).
