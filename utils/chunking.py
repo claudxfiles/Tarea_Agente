@@ -1,6 +1,6 @@
 import hashlib
 
-def chunk_text(text, chunk_size=500, overlap=50):
+def chunk_text(text, chunk_size=90, overlap=0):
     """
     Splits text into chunks of `chunk_size` characters with `overlap`.
     Returns a list of dicts with text and metadata.
