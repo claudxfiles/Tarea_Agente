@@ -50,55 +50,63 @@ def ingest_documents():
     r.flushall()
     create_index() # Re-create index after flush
     
-    # 2. PDF Path
-    pdf_path = "data/PDF/Ley-21442_13-ABR-2022.pdf"
-    if not os.path.exists(pdf_path):
-        print(f"Error: PDF not found at {pdf_path}")
+    # 2. Source Directory
+    docs_dir = "data/Doc_2"
+    if not os.path.exists(docs_dir):
+        print(f"Error: Directory not found at {docs_dir}")
         return
 
-    print(f"Processing PDF: {pdf_path}")
+    # 3. Get all .txt files
+    files = [f for f in os.listdir(docs_dir) if f.endswith('.txt')]
+    print(f"Found {len(files)} text files in {docs_dir}")
     
-    # 3. Extract Text
-    full_text = ""
-    try:
-        reader = pypdf.PdfReader(pdf_path)
-        for page in reader.pages:
-            full_text += page.extract_text() + "\n"
-    except Exception as e:
-        print(f"Error reading PDF: {e}")
-        return
-
-    print(f"Extracted {len(full_text)} chars from PDF.")
-
-    # 4. Chunking
-    chunks = chunk_text(full_text)
-    print(f"Generated {len(chunks)} chunks.")
+    total_chunks_ingested = 0
     
-    # 5. Ingest
-    for i, chunk in enumerate(chunks):
-        embedding = get_embedding(chunk['content'])
+    for filename in files:
+        file_path = os.path.join(docs_dir, filename)
+        print(f"Processing file: {filename}")
         
-        if not embedding:
-            print(f"Skipping chunk {i} due to embedding error")
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            print(f"Error reading {filename}: {e}")
             continue
+
+        print(f"Read {len(content)} chars from {filename}.")
+
+        # 4. Chunking
+        chunks = chunk_text(content)
+        print(f"Generated {len(chunks)} chunks for {filename}.")
+        
+        # 5. Ingest
+        for i, chunk in enumerate(chunks):
+            embedding = get_embedding(chunk['content'])
             
-        key = f"chunk:ley_copropiedad:{i}"
-        
-        # Prepare data for Redis
-        embedding_bytes = np.array(embedding, dtype=np.float32).tobytes()
-        
-        mapping = {
-            "doc_id": "Ley-21442_13-ABR-2022.pdf",
-            "chunk_id": chunk['chunk_id'],
-            "content": chunk['content'],
-            "vector": embedding_bytes
-        }
-        
-        r.hset(key, mapping=mapping)
-        if i % 10 == 0:
-            print(f"Ingested {i}/{len(chunks)} chunks...")
+            if not embedding:
+                print(f"Skipping chunk {i} of {filename} due to embedding error")
+                continue
+                
+            # Create a unique key using filename and chunk index
+            key = f"chunk:{filename}:{i}"
             
-    print("Ingestion complete.")
+            # Prepare data for Redis
+            embedding_bytes = np.array(embedding, dtype=np.float32).tobytes()
+            
+            mapping = {
+                "doc_id": filename,
+                "chunk_id": chunk['chunk_id'],
+                "content": chunk['content'],
+                "vector": embedding_bytes
+            }
+            
+            r.hset(key, mapping=mapping)
+            total_chunks_ingested += 1
+            
+        print(f"Ingested {len(chunks)} chunks from {filename}.")
+            
+    print(f"Ingestion complete. Total chunks ingested: {total_chunks_ingested}")
+
 
 if __name__ == "__main__":
     ingest_documents()

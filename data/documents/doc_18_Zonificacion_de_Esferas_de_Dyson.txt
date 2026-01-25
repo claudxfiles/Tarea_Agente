@@ -1,7 +1,0 @@
-Título: Zonificacion de Esferas de Dyson
-ID: DOC-018
-Categoría: Regulación
-
-Restringe mega-estructuras alrededor de estrellas habitadas.
-Esta regulación es aplicada por el Consejo de la Federación Galáctica.
-El incumplimiento resulta en sanciones nivel 4.

@@ -1,7 +1,0 @@
-Título: Estandar de Comunicaciones de Espacio Profundo
-ID: DOC-010
-Categoría: Regulación
-
-Estandariza frecuencias subespaciales a 45.2MHz.
-Esta regulación es aplicada por el Consejo de la Federación Galáctica.
-El incumplimiento resulta en sanciones nivel 4.

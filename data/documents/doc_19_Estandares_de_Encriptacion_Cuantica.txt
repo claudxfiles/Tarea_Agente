@@ -1,7 +1,0 @@
-Título: Estandares de Encriptacion Cuantica
-ID: DOC-019
-Categoría: Regulación
-
-Claves mínimas de 4096-qubits para comunicaciones gubernamentales.
-Esta regulación es aplicada por el Consejo de la Federación Galáctica.
-El incumplimiento resulta en sanciones nivel 4.

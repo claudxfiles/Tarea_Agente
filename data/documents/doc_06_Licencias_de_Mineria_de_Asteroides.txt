@@ -1,7 +1,0 @@
-Título: Licencias de Mineria de Asteroides
-ID: DOC-006
-Categoría: Regulación
-
-Requiere permiso A-99 para cinturones no regulados.
-Esta regulación es aplicada por el Consejo de la Federación Galáctica.
-El incumplimiento resulta en sanciones nivel 4.

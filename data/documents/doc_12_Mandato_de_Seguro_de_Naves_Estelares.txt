@@ -1,7 +1,0 @@
-Título: Mandato de Seguro de Naves Estelares
-ID: DOC-012
-Categoría: Regulación
-
-Toda nave más rápida que la luz debe tener cobertura de casco.
-Esta regulación es aplicada por el Consejo de la Federación Galáctica.
-El incumplimiento resulta en sanciones nivel 4.

@@ -1,7 +1,0 @@
-Title: Starship Insurance Mandate
-ID: DOC-012
-Category: Regulation
-
-All faster-than-light vessels must observe hull coverage.
-This regulation is enforced by the Galactic Federation Council.
-Failure to comply results in sanctions level 4.

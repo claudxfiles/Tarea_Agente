@@ -1,7 +1,0 @@
-Title: Dyson Sphere Zoning
-ID: DOC-018
-Category: Regulation
-
-Restricts mega-structures around inhabited stars.
-This regulation is enforced by the Galactic Federation Council.
-Failure to comply results in sanctions level 4.

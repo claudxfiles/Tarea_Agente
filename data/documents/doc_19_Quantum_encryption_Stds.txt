@@ -1,7 +1,0 @@
-Title: Quantum encryption Stds
-ID: DOC-019
-Category: Regulation
-
-Minimum 4096-qubit keys for government comms.
-This regulation is enforced by the Galactic Federation Council.
-Failure to comply results in sanctions level 4.

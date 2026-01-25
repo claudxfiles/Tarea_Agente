@@ -1,7 +1,0 @@
-Título: Cuarentena de Flora Alienigena
-ID: DOC-003
-Categoría: Regulación
-
-Prohíbe el transporte de plantas sintientes del Sector 7.
-Esta regulación es aplicada por el Consejo de la Federación Galáctica.
-El incumplimiento resulta en sanciones nivel 4.

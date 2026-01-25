@@ -1,7 +1,0 @@
-Title: Deep Space Comms Standard
-ID: DOC-010
-Category: Regulation
-
-Standardizes subspace frequencies to 45.2MHz.
-This regulation is enforced by the Galactic Federation Council.
-Failure to comply results in sanctions level 4.

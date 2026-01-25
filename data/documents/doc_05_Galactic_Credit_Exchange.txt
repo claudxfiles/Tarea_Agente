@@ -1,7 +1,0 @@
-Title: Galactic Credit Exchange
-ID: DOC-005
-Category: Regulation
-
-Fixed exchange rate between Credits and Latinum.
-This regulation is enforced by the Galactic Federation Council.
-Failure to comply results in sanctions level 4.
