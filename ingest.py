@@ -51,7 +51,7 @@ def ingest_documents():
     create_index() # Re-create index after flush
     
     # 2. Source Directory
-    docs_dir = "data/Doc_2"
+    docs_dir = "data/Doc"
     if not os.path.exists(docs_dir):
         print(f"Error: Directory not found at {docs_dir}")
         return
