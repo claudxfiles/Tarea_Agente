@@ -2,10 +2,10 @@ import streamlit as st
 import time
 from agent import process_query
 
-st.set_page_config(page_title="Agente Ley Copropiedad", page_icon="🏢")
+st.set_page_config(page_title="Agente La Roja", page_icon="⚽")
 
-st.title("🏢 Agente de Copropiedad Inmobiliaria")
-st.markdown("Experto en la Ley 21.442. Pregunta sobre administración, mascotas, ruidos molestos, etc.")
+st.title("⚽ Agente Experto en La Roja")
+st.markdown("Todo sobre la Selección Chilena de Fútbol. Historia, jugadores, la Generación Dorada y más.")
 
 # Initialize chat history
 if "messages" not in st.session_state:

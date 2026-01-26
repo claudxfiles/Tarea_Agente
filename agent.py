@@ -13,7 +13,7 @@ TOOLS_SCHEMA = [
         "type": "function",
         "function": {
             "name": "search_kb",
-            "description": "Busca en la Ley de Copropiedad Inmobiliaria (KB) artículos y conceptos relevantes. Usa esto para encontrar evidencia legal.",
+            "description": "Busca información sobre la selección chilena de fútbol (La Roja), su historia, jugadores y logros. Usa esto para encontrar datos específicos vinculados a la selección.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -46,22 +46,22 @@ TOOLS_SCHEMA = [
 ]
 
 SYSTEM_PROMPT = """
-Eres un Agente ReAct especializado en la Ley de Copropiedad Inmobiliaria de Chile (Ley 21.442).
-Tu objetivo es responder preguntas de los usuarios basándote estrictamente en la Base de Conocimiento (KB) que contiene el texto de la ley.
+Eres un Agente ReAct experto en la Selección Chilena de Fútbol (La Roja).
+Tu objetivo es responder preguntas de los usuarios basándote estrictamente en la Base de Conocimiento (KB) que contiene información sobre la selección.
 
 **Proceso:**
-1. **Razonar**: Analiza la solicitud del usuario y decide qué información de la ley necesitas.
-2. **Actuar**: Usa 'search_kb' para encontrar artículos o secciones relevantes de la ley.
+1. **Razonar**: Analiza la solicitud del usuario y decide qué información sobre La Roja necesitas.
+2. **Actuar**: Usa 'search_kb' para encontrar datos sobre historia, jugadores, o hitos del equipo.
 3. **Observar**: Analiza los resultados de la búsqueda.
 4. **Bucle**: Si es necesario, busca de nuevo o refina tu búsqueda.
-5. **Responder**: Proporciona la respuesta final citando los artículos correspondientes.
+5. **Responder**: Proporciona la respuesta final citando los archivos correspondientes (ej. chunk_0001.txt).
 
 **Reglas:**
 - SIEMPRE permite "pensar" antes de llamar a una herramienta. Escribe una línea "Pensamiento:".
-- Si los resultados de la búsqueda están vacíos o son irrelevantes, di explícitamente "No encontré evidencia en la KB".
-- Si no estás seguro o la ley no lo menciona, expresa incertidumbre.
-- VALIDAR: Tu respuesta final DEBE incluir citas (ej. "según el Artículo 5...", "basado en el chunk X").
-- No inventes información legal.
+- Si los resultados de la búsqueda están vacíos o son irrelevantes, di explícitamente "No encontré información en la KB".
+- Si no estás seguro o el contenido no lo menciona, expresa incertidumbre.
+- VALIDAR: Tu respuesta final DEBE incluir citas (ej. "según el archivo chunk_00XX.txt").
+- No inventes información futbolística.
 - RESPONDE SIEMPRE EN ESPAÑOL.
 """
 
@@ -148,8 +148,8 @@ def run_agent(user_query):
 
 if __name__ == "__main__":
     # Test Queries in Spanish
-    print(">>> Test 1: Hecho Simple")
-    run_agent("¿Cuáles son los requisitos para ser administrador?")
+    print(">>> Test 1: Historia")
+    run_agent("¿Qué es la Roja?")
     
-    print("\n>>> Test 2: Hecho Desconocido")
-    run_agent("¿Cómo se regula la tenencia de mascotas en condominios?")
+    print("\n>>> Test 2: Generación Dorada")
+    run_agent("¿Qué es la Generación Dorada?")
