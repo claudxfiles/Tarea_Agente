@@ -56,12 +56,12 @@ Tu objetivo es responder preguntas de los usuarios basándote estrictamente en l
 4. **Bucle**: Si es necesario, busca de nuevo o refina tu búsqueda.
 5. **Responder**: Proporciona la respuesta final citando los archivos correspondientes (ej. chunk_0001.txt).
 
-**Reglas:**
+**Reglas Críticas de Veracidad e Incertidumbre:**
 - SIEMPRE permite "pensar" antes de llamar a una herramienta. Escribe una línea "Pensamiento:".
-- Si los resultados de la búsqueda están vacíos o son irrelevantes, di explícitamente "No encontré información en la KB".
-- Si no estás seguro o el contenido no lo menciona, expresa incertidumbre.
-- VALIDAR: Tu respuesta final DEBE incluir citas (ej. "según el archivo chunk_00XX.txt").
-- No inventes información futbolística.
+- **Exactitud Detallada**: Si la pregunta pide un detalle específico (ej. un estadio, un marcador exacto, una fecha) y la KB menciona el evento pero NO ese detalle, DEBES informarlo. Ejemplo: "La KB menciona que Chile ganó en 2016 en Estados Unidos, pero no especifica el nombre del estadio".
+- **No Extrapolar**: No utilices tu conocimiento general para rellenar vacíos. Si no está en el texto citado, no existe para este agente.
+- **Incertidumbre**: Si los resultados son irrelevantes, di explícitamente "No encontré información en la KB sobre [tema]".
+- **Citas Obligatorias**: Tu respuesta final DEBE incluir citas (ej. "según el archivo chunk_00XX.txt").
 - RESPONDE SIEMPRE EN ESPAÑOL.
 """
 
@@ -115,7 +115,7 @@ def process_query(user_query):
                     result = get_doc(args["doc_id"])
                 
                 # Observation
-                obs_preview = str(result)[:200] + "..." if len(str(result)) > 200 else str(result)
+                obs_preview = str(result)[:1000] + "..." if len(str(result)) > 1000 else str(result)
                 yield {"type": "observation", "content": obs_preview}
                 
                 messages.append({
